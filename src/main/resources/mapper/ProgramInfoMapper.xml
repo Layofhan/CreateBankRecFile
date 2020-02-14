@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.han.createbankrecfileapi.mapper.ProgramInfoMapper">
+    <resultMap id="programinfo" type="com.han.createbankrecfileapi.dto.ProgramInfo">
+        <id column="URID" property="Urid"></id>
+        <result column="PORT" property="Port"></result>
+        <result column="IP" property="Ip"></result>
+    </resultMap>
+
+    <select id="selectAll" resultMap="programinfo">
+        SELECT * FROM PROGRAMINFO
+    </select>
+
+</mapper>
