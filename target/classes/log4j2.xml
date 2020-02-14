@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration>
+    <springProperty scope="context" name="logback.path" source="logback.rootPath"></springProperty>
+    <springProperty scope="context" name="logback.rootPath" source="logback.rootPath"></springProperty>
+    <springProperty scope="context" name="logback.charset" source="logback.charset"></springProperty>
+    <springProperty scope="context" name="logback.level" source="logback.level"></springProperty>
+
+    <property name="logback.path" value="${logback.rootPath}" />
+    <property name="logback.level" value="${logback.level}" />
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+        <encoder charset="${logback.charset}">
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger-%line -- %msg --%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logback.path}/%d{yyyy-MM-dd}/netty.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!--日志大小-->
+            <maxFileSize>100MB</maxFileSize>
+            <!--日志文件保留天数-->
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder charset="${logback.charset}">
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger-%line -- %msg --%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="${logback.level}">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ROLLINGFILE"/>
+    </root>
+
+</configuration>
